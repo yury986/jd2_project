@@ -22,10 +22,6 @@ public class Account {
     @Column(name = "ACCOUNT_CURRENCY")
     private String accountCurrency;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product  product;
-
     public Account(String id, String accountNumber, String accountCurrency) {
         this.id = id;
         this.accountNumber = accountNumber;
@@ -58,18 +54,4 @@ public class Account {
     public void setAccountCurrency(String accountCurrency) {
         this.accountCurrency = accountCurrency;
     }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Account account = (Account) object;
-        return Objects.equals(id, account.id) && Objects.equals(accountNumber, account.accountNumber) && Objects.equals(accountCurrency, account.accountCurrency);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, accountNumber, accountCurrency);
-    }
 }
-

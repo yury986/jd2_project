@@ -22,13 +22,6 @@ public class ClientProduct {
     @Column(name = "PRODUCT_ID")
     private String productId;
 
-    @OneToMany(mappedBy = "clientProduct")
-    private List<Client> clients;
-
-    @OneToMany(mappedBy = "clientProduct")
-    private List<Product> products;
-
-
     public ClientProduct(String clientProductId, String userId, String productId) {
         ClientProductId = clientProductId;
         this.userId = userId;
@@ -62,24 +55,16 @@ public class ClientProduct {
         this.productId = productId;
     }
 
-    public List<Client> getClients() {
-        return clients;
-    }
-
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
-    }
-
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         ClientProduct that = (ClientProduct) object;
-        return Objects.equals(ClientProductId, that.ClientProductId) && Objects.equals(userId, that.userId) && Objects.equals(productId, that.productId) && Objects.equals(clients, that.clients);
+        return Objects.equals(ClientProductId, that.ClientProductId) && Objects.equals(userId, that.userId) && Objects.equals(productId, that.productId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ClientProductId, userId, productId, clients);
+        return Objects.hash(ClientProductId, userId, productId);
     }
 }

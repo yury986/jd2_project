@@ -23,17 +23,13 @@ public class  Deposit {
     @Column(name = "PERSENT_DEPOSIT")
     private String persentDeposit;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product  product;
-
-    public Deposit() {
-    }
-
     public Deposit(String depositId, String sumDeposit, String persentDeposit) {
         this.depositId = depositId;
         this.sumDeposit = sumDeposit;
         this.persentDeposit = persentDeposit;
+    }
+
+    public Deposit() {
     }
 
     public String getDepositId() {

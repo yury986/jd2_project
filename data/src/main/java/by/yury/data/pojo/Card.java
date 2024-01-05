@@ -28,11 +28,6 @@ public class  Card {
     private String cash;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product product;
-
-
     public Card(String id, String cardName, String cardNumb, String cash) {
         this.id = id;
         this.cardName = cardName;
@@ -88,4 +83,3 @@ public class  Card {
         return Objects.hash(id, cardName, cardNumb, cash);
     }
 }
-

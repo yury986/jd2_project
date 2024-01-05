@@ -9,7 +9,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "T_PRODUCT")
 
-
 public class  Product {
     @Id
     @GenericGenerator(strategy = "uuid2", name = "product_uuid2")
@@ -33,22 +32,6 @@ public class  Product {
 
     @Column(name = "DEPOSIT_ID")
     private String depositId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CLIENT_PRODUCT_ID")
-    private ClientProduct clientProduct;
-
-    @OneToMany(mappedBy = "product")
-    private List<Card> cards;
-
-    @OneToMany(mappedBy = "product")
-    private List<Credit> credits;
-
-    @OneToMany(mappedBy = "product")
-    private List<Deposit> deposits;
-
-    @OneToMany(mappedBy = "product")
-    private List<Account> accounts;
 
     public Product(String paymentId, String accountId, String cardId, String creditId, String depositId) {
         this.paymentId = paymentId;
@@ -114,4 +97,3 @@ public class  Product {
         return Objects.hash(paymentId, accountId, cardId, creditId, depositId);
     }
 }
-

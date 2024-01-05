@@ -25,22 +25,13 @@ public class Client {
     @JoinColumn(name = "PERSON_ID")
     private Person person;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CLIENT_PRODUCT_ID")
-    private ClientProduct  clientProduct;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CLIENT_SERVICE_ID")
-    private ClientService  clientService;
-
-    public Client() {
-    }
-
     public Client(String id, String userName, String password) {
         this.id = id;
         this.userName = userName;
         this.password = password;
+    }
+
+    public Client() {
     }
 
     public String getId() {
@@ -75,14 +66,6 @@ public class Client {
         this.person = person;
     }
 
-    public ClientProduct getClientProduct() {
-        return clientProduct;
-    }
-
-    public void setClientProduct(ClientProduct clientProduct) {
-        this.clientProduct = clientProduct;
-    }
-
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
@@ -96,4 +79,3 @@ public class Client {
         return Objects.hash(id, userName, password);
     }
 }
-

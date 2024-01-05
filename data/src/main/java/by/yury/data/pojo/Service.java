@@ -25,18 +25,6 @@ public class  Service {
     @Column(name = "PAYMENT_ID")
     private String paymentId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CLIENT_SERVICE_ID")
-    private ClientService  clientService;
-
-
-    @OneToMany(mappedBy = "service")
-    private List<Payment> payments;
-
-    @OneToMany(mappedBy = "service")
-    private List<CardTransfer> cardTransfers;
-
-
     public Service(String serviceId, String cardTransferId, String paymentId) {
         this.serviceId = serviceId;
         this.cardTransferId = cardTransferId;
@@ -83,6 +71,5 @@ public class  Service {
         return Objects.hash(serviceId, cardTransferId, paymentId);
     }
 }
-
 
 

@@ -9,7 +9,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "T_CARD_TRANSFER")
 
-
 public class  CardTransfer {
     @Id
     @GenericGenerator(strategy = "uuid2", name = "card_uuid2")
@@ -29,12 +28,6 @@ public class  CardTransfer {
 
     @Column(name = "CARD_NUMB_RECIPIENT")
     private String cardNumbRecipient;
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SERVICE_ID")
-    private Service  service;
-
 
     public CardTransfer(String id, String transferAmount, String cardNumbSender, String cardNumbRecipient) {
         this.id = id;
@@ -91,4 +84,3 @@ public class  CardTransfer {
         return Objects.hash(id, transferAmount, cardNumbSender, cardNumbRecipient);
     }
 }
-
