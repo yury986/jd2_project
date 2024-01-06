@@ -24,6 +24,10 @@ public class  Payment {
     @Column(name = "RECIPIENT")
     private String recipient;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SERVICE_ID")
+    private Service  service;
+
     public Payment(String paymentId, String paymentSum, String recipient) {
         this.paymentId = paymentId;
         this.paymentSum = paymentSum;
@@ -55,6 +59,14 @@ public class  Payment {
 
     public void setRecipient(String recipient) {
         this.recipient = recipient;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 
     @Override

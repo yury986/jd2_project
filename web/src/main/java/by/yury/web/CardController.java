@@ -1,6 +1,8 @@
 package by.yury.web;
 
+import by.yury.data.dao.AccountDao;
 import by.yury.data.dao.CardDao;
+import by.yury.data.pojo.Account;
 import by.yury.data.pojo.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,23 +19,43 @@ import java.util.stream.IntStream;
 public class CardController {
 
     @Autowired
+    AccountDao accountDao;
+
+    @Autowired
     CardDao cardDao;
 
     @PostMapping("/card")
 
-    public ModelAndView getCardResult(@RequestParam("typecard") String typeCard, Model model) {
+    public ModelAndView getCardResult(@RequestParam("typecard") String typeCard,
+                                      @RequestParam("cash") String cash, Model model) throws NumberFormatException{
 
-        SecureRandom random = new SecureRandom();
+        SecureRandom rn = new SecureRandom();
         String cardNumber = IntStream.range(0, 16)
-                .mapToObj(i -> String.valueOf(random.nextInt(10)))
+                .mapToObj(i -> String.valueOf(rn.nextInt(10)))
                 .collect(Collectors.joining());
-// TODO: 01.01.2024
-        Card card = new Card(null, typeCard, cardNumber,"0");
 
-        if (typeCard.equals("Visa") || typeCard.equals("Visa Gold") || typeCard.equals("Visa Platinum")) {
-            cardDao.saveNewCard(card);
+        SecureRandom rd = new SecureRandom();
+        String accountNumber = IntStream.range(0, 16)
+                .mapToObj(i -> String.valueOf(rd.nextInt(10)))
+                .collect(Collectors.joining());
+
+        Account account = new Account(null, accountNumber,"USD");
+
+        if (Integer.parseInt(cash)>=0 && Integer.parseInt(cash)<=100000){
+            String accountId = accountDao.saveNewAccount(account);
+        }
+
+        Card card = new Card(null, typeCard, cardNumber,cash);
+        card.setAccount(account);
+
+        if (typeCard.equals("Visa") || typeCard.equals("Visa Gold") || typeCard.equals("Visa Platinum")
+        &&(Integer.parseInt(cash)>=0 && Integer.parseInt(cash)<=100000)) {
+            String cardId = cardDao.saveNewCard(card);
+
+
 
             model.addAttribute("cardNumber",cardNumber);
+            model.addAttribute("accountNumber", accountNumber);
 
             return new ModelAndView("cardnumber");
         } else {

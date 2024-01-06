@@ -15,7 +15,14 @@
         <mapping class="by.yury.data.pojo.Person"/>
         <mapping class="by.yury.data.pojo.Account"/>
         <mapping class="by.yury.data.pojo.Card"/>
-
+        <mapping class="by.yury.data.pojo.Product"/>
+        <mapping class="by.yury.data.pojo.Credit"/>
+        <mapping class="by.yury.data.pojo.Deposit"/>
+        <mapping class="by.yury.data.pojo.ClientProduct"/>
+        <mapping class="by.yury.data.pojo.ClientService"/>
+        <mapping class="by.yury.data.pojo.Service"/>
+        <mapping class="by.yury.data.pojo.CardTransfer"/>
+        <mapping class="by.yury.data.pojo.Payment"/>
 
     </session-factory>
 

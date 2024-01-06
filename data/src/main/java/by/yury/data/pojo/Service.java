@@ -25,6 +25,20 @@ public class  Service {
     @Column(name = "PAYMENT_ID")
     private String paymentId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CLIENT_SERVICE_ID")
+    private ClientService  clientService;
+
+
+    @OneToMany(mappedBy = "service")
+    private List<Payment> payments;
+
+
+    @OneToMany(mappedBy = "service")
+    private List<CardTransfer> cardTransfers;
+
+
+
     public Service(String serviceId, String cardTransferId, String paymentId) {
         this.serviceId = serviceId;
         this.cardTransferId = cardTransferId;
@@ -56,6 +70,30 @@ public class  Service {
 
     public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
+    }
+
+    public ClientService getClientService() {
+        return clientService;
+    }
+
+    public void setClientService(ClientService clientService) {
+        this.clientService = clientService;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public List<CardTransfer> getCardTransfers() {
+        return cardTransfers;
+    }
+
+    public void setCardTransfers(List<CardTransfer> cardTransfers) {
+        this.cardTransfers = cardTransfers;
     }
 
     @Override

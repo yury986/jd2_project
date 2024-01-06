@@ -3,7 +3,6 @@ package by.yury.data.dao;
 import by.yury.data.TestDataConfiguration;
 import by.yury.data.TestDataSource;
 import by.yury.data.pojo.Account;
-import by.yury.data.pojo.Client;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

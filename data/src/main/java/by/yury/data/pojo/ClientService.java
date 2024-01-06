@@ -18,12 +18,20 @@ public class ClientService {
     private String userId;
 
     @Column(name = "SERVICE_ID")
-    private String productId;
+    private String serviceId;
+
+    @OneToMany(mappedBy = "clientService")
+    private List<Client> clients;
 
 
-    public ClientService(String userId, String productId) {
+    @OneToMany(mappedBy = "clientService")
+    private List<Service> services;
+
+    public ClientService(String userId, String serviceId, List<Client> clients, List<Service> services) {
         this.userId = userId;
-        this.productId = productId;
+        this.serviceId = serviceId;
+        this.clients = clients;
+        this.services = services;
     }
 
     public ClientService() {
@@ -37,16 +45,40 @@ public class ClientService {
         this.userId = userId;
     }
 
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         ClientService that = (ClientService) object;
-        return Objects.equals(userId, that.userId) && Objects.equals(productId, that.productId);
+        return Objects.equals(userId, that.userId) && Objects.equals(serviceId, that.serviceId) && Objects.equals(clients, that.clients) && Objects.equals(services, that.services);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, productId);
+        return Objects.hash(userId, serviceId, clients, services);
     }
 }

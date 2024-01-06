@@ -29,6 +29,10 @@ public class  CardTransfer {
     @Column(name = "CARD_NUMB_RECIPIENT")
     private String cardNumbRecipient;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SERVICE_ID")
+    private Service  service;
+
     public CardTransfer(String id, String transferAmount, String cardNumbSender, String cardNumbRecipient) {
         this.id = id;
         this.transferAmount = transferAmount;
@@ -69,6 +73,14 @@ public class  CardTransfer {
 
     public void setCardNumbRecipient(String cardNumbRecipient) {
         this.cardNumbRecipient = cardNumbRecipient;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 
     @Override

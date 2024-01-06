@@ -27,6 +27,14 @@ public class  Card {
     @Column(name = "CASH")
     private String cash;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PRODUCT_ID")
+    private Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ACCOUNT_ID")
+    private Account account;
+
 
     public Card(String id, String cardName, String cardNumb, String cash) {
         this.id = id;
@@ -70,16 +78,32 @@ public class  Card {
         this.cash = cash;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Card card = (Card) object;
-        return Objects.equals(id, card.id) && Objects.equals(cardName, card.cardName) && Objects.equals(cardNumb, card.cardNumb) && Objects.equals(cash, card.cash);
+        return Objects.equals(id, card.id) && Objects.equals(cardName, card.cardName) && Objects.equals(cardNumb, card.cardNumb) && Objects.equals(cash, card.cash) && Objects.equals(account, card.account);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cardName, cardNumb, cash);
+        return Objects.hash(id, cardName, cardNumb, cash, account);
     }
 }

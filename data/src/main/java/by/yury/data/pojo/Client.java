@@ -25,6 +25,17 @@ public class Client {
     @JoinColumn(name = "PERSON_ID")
     private Person person;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CLIENT_PRODUCT_ID")
+    private ClientProduct  clientProduct;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CLIENT_SERVICE_ID")
+    private ClientService  clientService;
+
+
     public Client(String id, String userName, String password) {
         this.id = id;
         this.userName = userName;
@@ -64,6 +75,22 @@ public class Client {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public ClientProduct getClientProduct() {
+        return clientProduct;
+    }
+
+    public void setClientProduct(ClientProduct clientProduct) {
+        this.clientProduct = clientProduct;
+    }
+
+    public ClientService getClientService() {
+        return clientService;
+    }
+
+    public void setClientService(ClientService clientService) {
+        this.clientService = clientService;
     }
 
     @Override

@@ -4,6 +4,7 @@ package by.yury.data.pojo;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -21,6 +22,9 @@ public class Account {
 
     @Column(name = "ACCOUNT_CURRENCY")
     private String accountCurrency;
+
+    @OneToMany(mappedBy = "account")
+    private List<Card> cards;
 
     public Account(String id, String accountNumber, String accountCurrency) {
         this.id = id;
@@ -53,5 +57,26 @@ public class Account {
 
     public void setAccountCurrency(String accountCurrency) {
         this.accountCurrency = accountCurrency;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Account account = (Account) object;
+        return Objects.equals(id, account.id) && Objects.equals(accountNumber, account.accountNumber) && Objects.equals(accountCurrency, account.accountCurrency) && Objects.equals(cards, account.cards);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, accountNumber, accountCurrency, cards);
     }
 }

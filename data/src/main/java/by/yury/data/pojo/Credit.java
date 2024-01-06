@@ -23,6 +23,10 @@ public class  Credit {
     @Column(name = "PERSENT_CREDIT")
     private String persentCredit;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PRODUCT_ID")
+    private Product  product;
+
     public Credit(String creditId, String sumCredit, String persentCredit) {
         this.creditId = creditId;
         this.sumCredit = sumCredit;
@@ -54,6 +58,15 @@ public class  Credit {
 
     public void setPersentCredit(String persentCredit) {
         this.persentCredit = persentCredit;
+    }
+
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override

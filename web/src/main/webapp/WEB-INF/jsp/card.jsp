@@ -11,8 +11,13 @@
             <td>Type of card:</td>
             <td><input type="text" name="typecard" /></td>
         </tr>
+
+        <tr>
+            <td>Cash:</td>
+            <td><input type="text" name="cash" /></td>
+        </tr>
     </table>
-    <input type="submit" value="Login" />
+    <input type="submit" value="Submit" />
 </form>
 <a class="nav-link active" aria-current="page" href="/web/general"> To Main </a>
 <%@include file="footer.jsp"%>

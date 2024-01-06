@@ -22,6 +22,12 @@ public class ClientProduct {
     @Column(name = "PRODUCT_ID")
     private String productId;
 
+    @OneToMany(mappedBy = "clientProduct")
+    private List<Client> clients;
+
+    @OneToMany(mappedBy = "clientProduct")
+    private List<Product> products;
+
     public ClientProduct(String clientProductId, String userId, String productId) {
         ClientProductId = clientProductId;
         this.userId = userId;
@@ -53,6 +59,22 @@ public class ClientProduct {
 
     public void setProductId(String productId) {
         this.productId = productId;
+    }
+
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @Override

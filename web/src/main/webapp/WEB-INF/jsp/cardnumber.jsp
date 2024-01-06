@@ -8,6 +8,11 @@
         <tr>
             <td>Number of your card: ${cardNumber}</td>
         </tr>
+
+        <tr>
+            <td>Number of your account: ${accountNumber}</td>
+        </tr>
+
     </table>
     <a class="nav-link active" aria-current="page" href="/web/general"> To Main </a>
 </form>

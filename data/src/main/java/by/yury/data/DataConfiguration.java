@@ -1,9 +1,6 @@
 package by.yury.data;
 
-import by.yury.data.pojo.Account;
-import by.yury.data.pojo.Card;
-import by.yury.data.pojo.Client;
-import by.yury.data.pojo.Person;
+import by.yury.data.pojo.*;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.hibernate.SessionFactory;
@@ -72,7 +69,15 @@ public class DataConfiguration {
                 Person.class,
                 Client.class,
                 Account.class,
-                Card.class
+                Card.class,
+                Product.class,
+                Credit.class,
+                Deposit.class,
+                ClientProduct.class,
+                ClientService.class,
+                Service.class,
+                CardTransfer.class,
+                Payment.class
 
         );
         return sessionFactory;

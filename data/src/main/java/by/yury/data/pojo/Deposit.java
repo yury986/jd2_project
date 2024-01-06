@@ -19,9 +19,13 @@ public class  Deposit {
     @Column(name = "SUM_DEPOSIT")
     private String sumDeposit;
 
-
     @Column(name = "PERSENT_DEPOSIT")
     private String persentDeposit;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PRODUCT_ID")
+    private Product  product;
 
     public Deposit(String depositId, String sumDeposit, String persentDeposit) {
         this.depositId = depositId;
@@ -54,6 +58,15 @@ public class  Deposit {
 
     public void setPersentDeposit(String persentDeposit) {
         this.persentDeposit = persentDeposit;
+    }
+
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override

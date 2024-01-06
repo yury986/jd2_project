@@ -33,6 +33,23 @@ public class  Product {
     @Column(name = "DEPOSIT_ID")
     private String depositId;
 
+    @OneToMany(mappedBy = "product")
+    private List<Card> cards;
+
+
+    @OneToMany(mappedBy = "product")
+    private List<Credit> credits;
+
+
+    @OneToMany(mappedBy = "product")
+    private List<Deposit> deposits;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CLIENT_PRODUCT_ID")
+    private ClientProduct clientProduct;
+
+
     public Product(String paymentId, String accountId, String cardId, String creditId, String depositId) {
         this.paymentId = paymentId;
         this.accountId = accountId;
@@ -82,6 +99,38 @@ public class  Product {
 
     public void setDepositId(String depositId) {
         this.depositId = depositId;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public List<Credit> getCredits() {
+        return credits;
+    }
+
+    public void setCredits(List<Credit> credits) {
+        this.credits = credits;
+    }
+
+    public List<Deposit> getDeposits() {
+        return deposits;
+    }
+
+    public void setDeposits(List<Deposit> deposits) {
+        this.deposits = deposits;
+    }
+
+    public ClientProduct getClientProduct() {
+        return clientProduct;
+    }
+
+    public void setClientProduct(ClientProduct clientProduct) {
+        this.clientProduct = clientProduct;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package by.yury.data.dao;
 
+import by.yury.data.CloneTestSessionFactory;
 import by.yury.data.TestDataConfiguration;
 import by.yury.data.TestDataSource;
 import by.yury.data.pojo.Account;
@@ -46,20 +47,32 @@ public class CardDaoImplTest {
     @Test
     public void testSaveNewCard() throws Exception {
         // Given
+        Connection conn = TestDataSource.getConnection();
+        String accountUUID = "b5bed480-507b-4e5d-a33e-f3ce37af0000";
+        conn.createStatement().executeUpdate("INSERT INTO T_ACCOUNT (ACCOUNT_ID,ACCOUNT_NUMBER, ACCOUNT_CURRENCY) VALUES('"
+                + accountUUID
+                + "','1232559874632502"
+                + "', 'USD');");
+
+
         Card card = new Card(null, "VISA","1234567890123456", "10000");
 
+        Account account = CloneTestSessionFactory
+                .getSessionFactory().openSession().get(Account.class, accountUUID);
+        card.setAccount(account);
 
         // When
-        String savedAccountId = cardDao.saveNewCard(card);
+        String savedCardId = cardDao.saveNewCard(card);
 
         // Then
-        assertNotNull(savedAccountId);
-        Connection conn = TestDataSource.getConnection();
+
         ResultSet rs = conn.createStatement().executeQuery(
-                "select count(*) from T_CARD where  CARD_NAME='VISA' and CARD_NUMB = '1234567890123456' and CASH='10000'"
+                "SELECT ACCOUNT_ID from T_CARD where CARD_ID='" + savedCardId + "';"
         );
         rs.next();
-        int actualCount = rs.getInt(1);
-        assertEquals(1, actualCount);
+        String savedAccountId = rs.getString(1);
+        assertNotNull(savedAccountId);
+        assertEquals(accountUUID, savedAccountId);
+        conn.close();
     }
 }
