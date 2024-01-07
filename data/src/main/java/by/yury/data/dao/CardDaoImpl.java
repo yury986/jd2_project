@@ -1,5 +1,8 @@
 package by.yury.data.dao;
 
+import by.yury.data.dto.AccountDto;
+import by.yury.data.dto.CardDto;
+import by.yury.data.pojo.Account;
 import by.yury.data.pojo.Card;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,6 +31,30 @@ public class CardDaoImpl implements CardDao {
         session = sessionFactory.getCurrentSession();
         savedCardId = (String) session.save(card);//Some work
         return savedCardId;
+    }
+
+    @Override
+    public void createCard(CardDto cardDto, AccountDto accountDto) {
+
+       Session session = sessionFactory.getCurrentSession();
+        Account account = new Account(
+                accountDto.getId(),
+                accountDto.getAccountNumber(),
+                accountDto.getAccountCurrency()
+        );
+
+        Card card = new Card(
+                cardDto.getId(),
+                cardDto.getCardName(),
+                cardDto.getCardNumb(),
+                cardDto.getCash()
+
+        );
+        card.setAccount(account);
+        session.saveOrUpdate(account);
+        session.save(card);//Some work
+
+
     }
 }
 

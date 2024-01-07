@@ -27,9 +27,7 @@ public class  Card {
     @Column(name = "CASH")
     private String cash;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product product;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_ID")
@@ -86,13 +84,7 @@ public class  Card {
         this.account = account;
     }
 
-    public Product getProduct() {
-        return product;
-    }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     @Override
     public boolean equals(Object object) {

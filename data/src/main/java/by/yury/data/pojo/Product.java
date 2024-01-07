@@ -33,9 +33,6 @@ public class  Product {
     @Column(name = "DEPOSIT_ID")
     private String depositId;
 
-    @OneToMany(mappedBy = "product")
-    private List<Card> cards;
-
 
     @OneToMany(mappedBy = "product")
     private List<Credit> credits;
@@ -101,13 +98,7 @@ public class  Product {
         this.depositId = depositId;
     }
 
-    public List<Card> getCards() {
-        return cards;
-    }
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
-    }
 
     public List<Credit> getCredits() {
         return credits;
