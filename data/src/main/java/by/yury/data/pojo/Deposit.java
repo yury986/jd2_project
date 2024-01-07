@@ -23,10 +23,6 @@ public class  Deposit {
     private String persentDeposit;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product  product;
-
     public Deposit(String depositId, String sumDeposit, String persentDeposit) {
         this.depositId = depositId;
         this.sumDeposit = sumDeposit;
@@ -60,14 +56,6 @@ public class  Deposit {
         this.persentDeposit = persentDeposit;
     }
 
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     @Override
     public boolean equals(Object object) {

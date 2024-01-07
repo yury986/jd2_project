@@ -6,15 +6,15 @@
     <table style="with: 50%">
 
         <tr>
-            <td>UserName</td>
-            <td><input type="text" name="username" /></td>
+            <td>Sum of credit</td>
+            <td><input type="text" name="sumcredit" /></td>
         </tr>
         <tr>
-            <td>Password</td>
-            <td><input type="password" name="password" /></td>
+            <td>Persent of credit</td>
+            <td><input type="text" name="percentcredit" /></td>
         </tr>
     </table>
-    <input type="submit" value="Login" />
+    <input type="submit" value="Save" />
 </form>
-<a class="nav-link active" aria-current="page" href="/web/register_1"> Registration</a>
+<a class="nav-link active" aria-current="page" href="/web/general"> To main</a>
 <%@include file="footer.jsp"%>

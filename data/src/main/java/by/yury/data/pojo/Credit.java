@@ -23,9 +23,7 @@ public class  Credit {
     @Column(name = "PERSENT_CREDIT")
     private String persentCredit;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product  product;
+
 
     public Credit(String creditId, String sumCredit, String persentCredit) {
         this.creditId = creditId;
@@ -61,13 +59,6 @@ public class  Credit {
     }
 
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     @Override
     public boolean equals(Object object) {

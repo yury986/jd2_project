@@ -34,13 +34,6 @@ public class  Product {
     private String depositId;
 
 
-    @OneToMany(mappedBy = "product")
-    private List<Credit> credits;
-
-
-    @OneToMany(mappedBy = "product")
-    private List<Deposit> deposits;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CLIENT_PRODUCT_ID")
@@ -99,22 +92,6 @@ public class  Product {
     }
 
 
-
-    public List<Credit> getCredits() {
-        return credits;
-    }
-
-    public void setCredits(List<Credit> credits) {
-        this.credits = credits;
-    }
-
-    public List<Deposit> getDeposits() {
-        return deposits;
-    }
-
-    public void setDeposits(List<Deposit> deposits) {
-        this.deposits = deposits;
-    }
 
     public ClientProduct getClientProduct() {
         return clientProduct;
