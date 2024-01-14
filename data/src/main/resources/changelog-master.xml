@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="1" author="yury">
+        <sql>
+            CREATE TABLE IF NOT EXISTS T_CLIENT (
+                USER_ID VARCHAR(255) NOT NULL,
+                USER_NAME VARCHAR(255) NOT NULL,
+                PASSWORD VARCHAR(255) NOT NULL,
+                USER_ROLE VARCHAR(255),
+                PRIMARY KEY (USER_ID)
+                );
+        </sql>
+
+    </changeSet>
+    <changeSet id="2" author="yury">
+
+        <sql>
+            CREATE TABLE IF NOT EXISTS T_PERSON (
+                PERSON_ID VARCHAR(255) NOT NULL,
+                FIRST_NAME VARCHAR(255) NOT NULL,
+                LAST_NAME VARCHAR(255) NOT NULL,
+                ADDRESS VARCHAR(255) NOT NULL,
+                PASSPORT VARCHAR(255) NOT NULL,
+                CONTACT VARCHAR(255) NOT NULL,
+                PRIMARY KEY (PERSON_ID)
+                );
+        </sql>
+    </changeSet>
+
+    <changeSet id="3" author="yury">
+        <sql>
+            ALTER TABLE T_CLIENT
+                ADD COLUMN PERSON_ID VARCHAR(255) NULL AFTER USER_ROLE;
+            ALTER TABLE T_CLIENT
+                ADD CONSTRAINT FK_PERSON FOREIGN KEY (PERSON_ID)
+                    REFERENCES T_PERSON (PERSON_ID);
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="4" author="yury">
+        <sql>
+            CREATE TABLE IF NOT EXISTS T_ACCOUNT(
+                ACCOUNT_ID VARCHAR(255) NOT NULL,
+                ACCOUNT_NUMBER VARCHAR(255) NOT NULL,
+                ACCOUNT_CURRENCY VARCHAR(255) NOT NULL,
+                PRIMARY KEY (ACCOUNT_ID)
+                );
+        </sql>
+    </changeSet>
+
+    <changeSet id="5" author="yury">
+        <sql>
+            CREATE TABLE IF NOT EXISTS T_CARD(
+                CARD_ID VARCHAR(255) NOT NULL,
+                CARD_NAME VARCHAR(255) NOT NULL,
+                CARD_NUMB VARCHAR(255),
+                CASH VARCHAR(255) NOT NULL,
+                ACCOUNT_ID VARCHAR(255) NOT NULL,
+                FOREIGN KEY (ACCOUNT_ID) REFERENCES T_ACCOUNT (ACCOUNT_ID),
+                PRIMARY KEY (CARD_ID)
+                );
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="7" author="yury">
+        <sql>
+            CREATE TABLE IF NOT EXISTS T_CREDIT(
+                CREDIT_ID VARCHAR (255) NOT NULL,
+                SUM_CREDIT VARCHAR (255) NOT NULL,
+                PERSENT_CREDIT VARCHAR (255) NOT NULL,
+                PRIMARY KEY (CREDIT_ID)
+                );
+        </sql>
+
+    </changeSet>
+
+    <changeSet id="8" author="yury">
+        <sql>
+            CREATE TABLE IF NOT EXISTS T_DEPOSIT(
+                DEPOSIT_ID VARCHAR(255) NOT NULL,
+                SUM_DEPOSIT VARCHAR(255) NOT NULL,
+                PERSENT_DEPOSIT VARCHAR (255) NOT NULL,
+                PRIMARY KEY (DEPOSIT_ID)
+                );
+        </sql>
+
+    </changeSet>
+
+    <changeSet id="9" author="yury">
+        <sql>
+            CREATE TABLE IF NOT EXISTS T_CARD_TRANSFER(
+                CARD_TRANSFER_ID VARCHAR(255) NOT NULL,
+                TRANSFER_AMOUNT VARCHAR(255) NOT NULL,
+                CARD_NUMB_SENDER VARCHAR(255) NOT NULL,
+                CARD_NUMB_RECIPIENT VARCHAR(255) NOT NULL,
+                PRIMARY KEY (CARD_TRANSFER_ID)
+                );
+        </sql>
+    </changeSet>
+
+    <changeSet id="10" author="yury">
+        <sql>
+            CREATE TABLE IF NOT EXISTS T_PAYMENT(
+                PAYMENT_ID VARCHAR (255) NOT NULL,
+                PAYMENT_SUM VARCHAR (255) NOT NULL,
+                RECIPIENT VARCHAR (255) NOT NULL,
+                PRIMARY KEY (PAYMENT_ID)
+                );
+        </sql>
+    </changeSet>
+
+    <changeSet id="11" author="yury">
+        <sql>
+            ALTER TABLE T_ACCOUNT
+                ADD COLUMN USER_ID VARCHAR(255) NULL AFTER ACCOUNT_ID;
+            ALTER TABLE T_ACCOUNT
+                ADD CONSTRAINT FK_CLIENT1 FOREIGN KEY (USER_ID)
+                    REFERENCES T_CLIENT (USER_ID);
+
+            ALTER TABLE T_CREDIT
+                ADD COLUMN USER_ID VARCHAR(255) NULL AFTER CREDIT_ID;
+            ALTER TABLE T_CREDIT
+                ADD CONSTRAINT FK_CLIENT2 FOREIGN KEY (USER_ID)
+                    REFERENCES T_CLIENT (USER_ID);
+
+            ALTER TABLE T_DEPOSIT
+                ADD COLUMN USER_ID VARCHAR(255) NULL AFTER DEPOSIT_ID;
+            ALTER TABLE T_DEPOSIT
+                ADD CONSTRAINT FK_CLIENT3 FOREIGN KEY (USER_ID)
+                    REFERENCES T_CLIENT (USER_ID);
+
+            ALTER TABLE T_CARD_TRANSFER
+                ADD COLUMN USER_ID VARCHAR(255) NULL AFTER CARD_TRANSFER_ID;
+            ALTER TABLE T_CARD_TRANSFER
+                ADD CONSTRAINT FK_CLIENT4 FOREIGN KEY (USER_ID)
+                    REFERENCES T_CLIENT (USER_ID);
+
+            ALTER TABLE T_PAYMENT
+                ADD COLUMN USER_ID VARCHAR(255) NULL AFTER PAYMENT_ID;
+            ALTER TABLE T_PAYMENT
+                ADD CONSTRAINT FK_CLIENT5 FOREIGN KEY (USER_ID)
+                    REFERENCES T_CLIENT (USER_ID);
+        </sql>
+    </changeSet>
+
+    <changeSet id="12" author="yury">
+        <sql>
+            INSERT INTO T_CLIENT VALUES ('aaaabbbbccccddddeeeeffff00000001', 'admin', 'admin', 'ROLE_ADMIN',NULL);
+        </sql>
+    </changeSet>
+
+
+
+<!--    <changeSet id="10" author="yury">-->
+<!--        <sql>-->
+<!--            CREATE TABLE IF NOT EXISTS T_PRODUCT(-->
+<!--                PRODUCT_ID VARCHAR(255) NOT NULL,-->
+<!--                PRIMARY KEY (PRODUCT_ID),-->
+<!--                CARD_ID VARCHAR(255) NOT NULL,-->
+<!--                CREDIT_ID VARCHAR(255) NOT NULL,-->
+<!--                DEPOSIT_ID VARCHAR(255) NOT NULL,-->
+<!--                FOREIGN KEY (CARD_ID) REFERENCES T_CARD (CARD_ID),-->
+<!--                FOREIGN KEY (CREDIT_ID) REFERENCES T_CREDIT (CREDIT_ID),-->
+<!--                FOREIGN KEY (DEPOSIT_ID) REFERENCES T_DEPOSIT (DEPOSIT_ID)-->
+<!--                );-->
+<!--        </sql>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="11" author="yury">-->
+<!--        <sql>-->
+<!--            CREATE TABLE IF NOT EXISTS T_CLIENT_PRODUCT(-->
+<!--                CLIENT_PRODUCT_ID VARCHAR(255) NOT NULL,-->
+<!--                PRIMARY KEY(CLIENT_PRODUCT_ID),-->
+<!--                USER_ID VARCHAR(255) NOT NULL,-->
+<!--                PRODUCT_ID VARCHAR(255) NOT NULL,-->
+<!--                KEY FK_TT_USER_ID (USER_ID),-->
+<!--                KEY FK_T_PRODUCT_ID (PRODUCT_ID),-->
+<!--                CONSTRAINT FK_TT_USER_ID FOREIGN KEY (USER_ID)-->
+<!--                REFERENCES T_CLIENT (USER_ID),-->
+<!--                CONSTRAINT FK_T_PRODUCT_ID FOREIGN KEY (PRODUCT_ID)-->
+<!--                REFERENCES T_PRODUCT  (PRODUCT_ID)-->
+<!--                );-->
+
+<!--        </sql>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="12" author="yury">-->
+<!--        <sql>-->
+<!--            CREATE TABLE IF NOT EXISTS T_SERVICE(-->
+<!--                SERVICE_ID VARCHAR(255) NOT NULL,-->
+<!--                PRIMARY KEY (SERVICE_ID),-->
+<!--                CARD_TRANSFER_ID VARCHAR(255) NOT NULL,-->
+<!--                PAYMENT_ID VARCHAR(255) NOT NULL,-->
+<!--                FOREIGN KEY (CARD_TRANSFER_ID) REFERENCES T_CARD_TRANSFER (CARD_TRANSFER_ID),-->
+<!--                FOREIGN KEY (PAYMENT_ID) REFERENCES T_PAYMENT (PAYMENT_ID)-->
+<!--                );-->
+<!--        </sql>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="13" author="yury">-->
+<!--        <sql>-->
+<!--            CREATE TABLE IF NOT EXISTS T_CLIENT_SERVICE(-->
+<!--                USER_ID VARCHAR(255) NOT NULL,-->
+<!--                SERVICE_ID VARCHAR(255) NOT NULL,-->
+<!--                KEY FK_T_USER_ID (USER_ID),-->
+<!--                KEY FK_T_SERVICE_ID (SERVICE_ID),-->
+<!--                CONSTRAINT FK_T_USER_ID FOREIGN KEY (USER_ID)-->
+<!--                REFERENCES T_CLIENT (USER_ID),-->
+<!--                CONSTRAINT FK_T_SERVICE_ID FOREIGN KEY (SERVICE_ID)-->
+<!--                REFERENCES T_SERVICE  (SERVICE_ID)-->
+<!--                );-->
+
+<!--        </sql>-->
+<!--    </changeSet>-->
+
+
+
+</databaseChangeLog>

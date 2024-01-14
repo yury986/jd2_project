@@ -1,0 +1,29 @@
+<hibernate-configuration xmlns="http://www.hibernate.org/xsd/orm/cfg">
+
+    <session-factory>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/Bank</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+
+        <mapping class="by.yury.data.pojo.Client"/>
+        <mapping class="by.yury.data.pojo.Person"/>
+        <mapping class="by.yury.data.pojo.Account"/>
+        <mapping class="by.yury.data.pojo.Card"/>
+<!--        <mapping class="by.yury.data.pojo.Product"/>-->
+        <mapping class="by.yury.data.pojo.Credit"/>
+        <mapping class="by.yury.data.pojo.Deposit"/>
+<!--        <mapping class="by.yury.data.pojo.ClientProduct"/>-->
+<!--        <mapping class="by.yury.data.pojo.ClientService"/>-->
+<!--        <mapping class="by.yury.data.pojo.Service"/>-->
+        <mapping class="by.yury.data.pojo.CardTransfer"/>
+        <mapping class="by.yury.data.pojo.Payment"/>
+
+    </session-factory>
+
+</hibernate-configuration>
