@@ -62,7 +62,7 @@
                 CARD_NAME VARCHAR(255) NOT NULL,
                 CARD_NUMB VARCHAR(255),
                 CASH VARCHAR(255) NOT NULL,
-                ACCOUNT_ID VARCHAR(255) NOT NULL,
+                ACCOUNT_ID VARCHAR(255) NULL,
                 FOREIGN KEY (ACCOUNT_ID) REFERENCES T_ACCOUNT (ACCOUNT_ID),
                 PRIMARY KEY (CARD_ID)
                 );

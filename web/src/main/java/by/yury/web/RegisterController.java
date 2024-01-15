@@ -58,9 +58,7 @@ public class RegisterController {
          }
         Person person = new Person(null, firstNameReq, lastNameReq, addressReq, passportReq, contactReq);
         String savedPersonId = personDao.saveNewPerson(person);
-
-        return "general";
-
+       return null;
     }
 
     @GetMapping("/register_1")

@@ -34,4 +34,5 @@
             <td><input type="text" name="contact" /></td>
         </tr></table>
     <input type="submit" value="Submit" /></form>
+<a class="nav-link active" aria-current="page" href="/web/general"> To main</a>
 <%@include file="footer.jsp"%>

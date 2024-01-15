@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ClientDao {
 
-    public List<String> readPassword() throws SQLException, ClassNotFoundException;
+//    public List<String> readPassword() throws SQLException, ClassNotFoundException;
 
     public List<String> readName() throws SQLException, ClassNotFoundException;
 

@@ -30,20 +30,20 @@ public class ClientDaoImpl implements ClientDao {
         this.sessionFactory = sessionFactory;
     }
 
-    @Override
-    public List<String> readPassword() throws SQLException, ClassNotFoundException {
-        Statement statement = DataSource.getConnection().createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from T_CLIENT");
-
-        List<String> usersPassword = new ArrayList<>();
-        while (resultSet.next()) {
-            String password = resultSet.getString("password");
-            usersPassword.add(password);
-        }
-        resultSet.close();
-        statement.close();
-        return usersPassword;
-    }
+//    @Override
+//    public List<String> readPassword() throws SQLException, ClassNotFoundException {
+//        Statement statement = DataSource.getConnection().createStatement();
+//        ResultSet resultSet = statement.executeQuery("select * from T_CLIENT");
+//
+//        List<String> usersPassword = new ArrayList<>();
+//        while (resultSet.next()) {
+//            String password = resultSet.getString("password");
+//            usersPassword.add(password);
+//        }
+//        resultSet.close();
+//        statement.close();
+//        return usersPassword;
+//    }
 
     @Override
     public List<String> readName() throws SQLException, ClassNotFoundException {
@@ -109,7 +109,6 @@ public class ClientDaoImpl implements ClientDao {
         for(Credit credit : credits) {
             session.save(credit);
         }
-       // session.save(credits);
         session.saveOrUpdate(client);//Some work
 
     }
