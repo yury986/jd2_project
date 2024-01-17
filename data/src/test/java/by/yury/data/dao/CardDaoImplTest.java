@@ -1,5 +1,6 @@
 package by.yury.data.dao;
 
+import by.yury.data.DataSource;
 import by.yury.data.TestDataConfiguration;
 import by.yury.data.TestDataSource;
 import by.yury.data.pojo.Account;
@@ -14,7 +15,10 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -42,7 +46,6 @@ public class CardDaoImplTest {
     }
 
 
-
     @Test
     public void testSaveNewCard() throws Exception {
         // Given
@@ -56,10 +59,84 @@ public class CardDaoImplTest {
         assertNotNull(savedAccountId);
         Connection conn = TestDataSource.getConnection();
         ResultSet rs = conn.createStatement().executeQuery(
-                "select count(*) from T_CARD where  CARD_NAME='VISA' and CARD_NUMB = '1234567890123456' and CASH='10000'"
+                "select count(*) from T_CARD where CARD_NAME='VISA' and CARD_NUMB = '1234567890123456' and CASH='10000'"
         );
         rs.next();
         int actualCount = rs.getInt(1);
         assertEquals(1, actualCount);
     }
+
+    @Test
+    public void UpdateCashTest() throws SQLException, ClassNotFoundException {
+        // Given
+        Connection conn = TestDataSource.getConnection();
+        String cardUUID = "b5bed480-507b-4e5d-a33e-f3ce37af0000";
+        conn.createStatement().executeUpdate("INSERT INTO T_CARD (CARD_ID, CARD_NAME, CARD_NUMB, CASH) VALUES" +
+                "('" + cardUUID + "',\n" +
+                "'VISA',\n" +
+                "'1456987456325896',\n" +
+                "'10000');\n");
+
+        //When
+        String newCash = "50";
+
+        String sql = "UPDATE T_CARD SET CASH = ? WHERE CARD_ID = ?";
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1, newCash);
+        statement.setString(2, cardUUID);
+        int rowsUpdated = statement.executeUpdate();
+
+        //Then
+        assertEquals(1, rowsUpdated);
+    }
+
+    @Test
+    public void testReadCardById() throws SQLException, ClassNotFoundException {
+        // Given
+        String cardUUID = UUID.randomUUID().toString();
+        Connection conn = TestDataSource.getConnection();
+        conn.createStatement().executeUpdate("INSERT INTO T_CARD (CARD_ID, CARD_NAME, CARD_NUMB, CASH) VALUES" +
+                "('" + cardUUID + "',\n" +
+                "'VISA',\n" +
+                "'1456987456325896',\n" +
+                "'10000');\n");
+        conn.close();
+
+        //When
+        Card card = cardDao.readCardById(cardUUID);
+
+        //Then
+        assertNotNull(card);
+        assertEquals(cardUUID, card.getId());
+        assertEquals("VISA", card.getCardName());
+        assertEquals("1456987456325896", card.getCardNumb());
+        assertEquals("10000", card.getCash());
+
+    }
+
+    @Test
+    public void testReadCardByName() throws SQLException, ClassNotFoundException {
+        // Given
+        String cardUUID = UUID.randomUUID().toString();
+        String cardNumb = "1456987456325896";
+        Connection conn = TestDataSource.getConnection();
+        conn.createStatement().executeUpdate("INSERT INTO T_CARD (CARD_ID, CARD_NAME, CARD_NUMB, CASH) VALUES" +
+                "('" + cardUUID + "',\n" +
+                "'VISA',\n" +
+                "'"+ cardNumb +"',\n" +
+                "'10000');\n");
+        conn.close();
+
+        //When
+        Card card = cardDao.readCardByNumber(cardNumb);
+
+        //Then
+        assertNotNull(card);
+        assertEquals(cardUUID, card.getId());
+        assertEquals("VISA", card.getCardName());
+        assertEquals("1456987456325896", card.getCardNumb());
+        assertEquals("10000", card.getCash());
+
+    }
+
 }

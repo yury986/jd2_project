@@ -40,25 +40,28 @@ public class RegisterController {
             return "register_1";
         }
 
+
         List<String> usersNames = clientDao.readName();
         for (String name : usersNames) {
-            if (name.equals(usersNames)) {
+            if (name.equals(usernameReq)) {
                 return"register_1";
+            }else{
+                Client userWeb = new Client (null,usernameReq,passwordReq,"ROLE_USER");
+                String savedClientId = clientDao.saveNewClient(userWeb);
             }
         }
 
-        Client userWeb = new Client (null,usernameReq,passwordReq,"ROLE_USER");
-        String savedClientId = clientDao.saveNewClient(userWeb);
-
         List<String> passports = personDao.readPassport();
          for (String passport : passports ) {
-             if (passport.equals(passports)) {
+             if (passport.equals(passportReq)) {
                  return "register_1";
+             }else{
+                 Person person = new Person(null, firstNameReq, lastNameReq, addressReq, passportReq, contactReq);
+                 String savedPersonId = personDao.saveNewPerson(person);
+
              }
          }
-        Person person = new Person(null, firstNameReq, lastNameReq, addressReq, passportReq, contactReq);
-        String savedPersonId = personDao.saveNewPerson(person);
-       return null;
+        return null;
     }
 
     @GetMapping("/register_1")
