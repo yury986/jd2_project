@@ -87,15 +87,15 @@ public class ClientDaoImpl implements ClientDao {
         return query.uniqueResult();
     }
 
-    @Override
-    public void saveorUpdateNewClient(Client client, List <Credit> credits) {
-        Session session = null;
-        session = sessionFactory.getCurrentSession();
-        client.setCredits(credits);
-        for(Credit credit : credits) {
-            session.save(credit);
-        }
-        session.saveOrUpdate(client);//Some work
-
-    }
+//    @Override
+//    public void saveorUpdateNewClient(Client client, List <Credit> credits) {
+//        Session session = null;
+//        session = sessionFactory.getCurrentSession();
+//        client.setCredits(credits);
+//        for(Credit credit : credits) {
+//            session.save(credit);
+//        }
+//        session.saveOrUpdate(client);//Some work
+//
+//    }
 }

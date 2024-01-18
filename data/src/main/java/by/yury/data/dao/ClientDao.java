@@ -20,7 +20,7 @@ public interface ClientDao {
 
     public Client readClientByName(String userName);
 
-    public void saveorUpdateNewClient(Client client, List <Credit> credits);
+//    public void saveorUpdateNewClient(Client client, List <Credit> credits);
 
 }
 
